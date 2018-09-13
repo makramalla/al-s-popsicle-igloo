@@ -42,12 +42,12 @@ Those server API's are hosted on AWS as docker containers.  This project also bu
 #### 1.1.1. Curl
 
 ```bash
-curl -X GET --header 'Accept: application/json' 'http://ec2-34-219-155-198.us-west-2.compute.amazonaws.com/restconf/config/menu/'
+curl -X GET --header 'Accept: application/json' '<aws_link>/restconf/config/menu/'
 ```
 
 #### 1.1.2. Swagger-ui
 
-Browse to [swagger_server](http://ec2-34-219-155-198.us-west-2.compute.amazonaws.com/restconf/ui/#!/)
+Browse to [swagger_server](<aws_link>/restconf/ui/#!/)
 
 #### 1.1.3. Postman
 
@@ -58,7 +58,7 @@ Use Postman. (Import the curl command from above) [instructions](https://www.dan
 #### 1.2.1. Command line ssh
 
 ```bash
-ssh netconf@ec2-34-219-155-198.us-west-2.compute.amazonaws.com -p 830 -s netconf
+ssh netconf@<aws_link> -p 830 -s netconf
 ```
 
 #### 1.2.2. python ncclient
@@ -67,7 +67,7 @@ Using [ncclient](https://github.com/ncclient/ncclient)
 
 ```bash
 pip3 install netconf-console
-NETCONF_HOST=ec2-34-219-155-198.us-west-2.compute.amazonaws.com
+NETCONF_HOST=<aws_link>
 NETCONF_USER=netconf
 NETCONF_PW=netconf
 ```
@@ -91,20 +91,20 @@ Work in Progress
 It's possible to use the docker images in this repo as API servers as well.
 
 ```bash
-docker login registry.blueplanet.com
-# use your git.blueplanet.com credentials
+docker login <aws_docker regisrty>
+# use your <aws_credentials>  credentials
 ```
 
 ### 2.1. REST (Swagger)
 
 ```bash
-docker run -d --name swagger_server -p 8080:8080 registry.blueplanet.com/ciena/als-popsicle-igloo/swagger_server:latest
+docker run -d --name swagger_server -p 8080:8080 <aws_registry>:latest
 ```
 
 ### 2.2. NETCONF
 
 ```bash
-docker run -it --name sysrepo -p 830:830 --rm registry.blueplanet.com/ciena/als-popsicle-igloo/netconf_server:latest
+docker run -it --name sysrepo -p 830:830 --rm <aws_registry>:latest
 ```
 
 ### 2.3. gRPC
