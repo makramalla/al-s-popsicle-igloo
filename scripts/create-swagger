@@ -1,0 +1,16 @@
+#!/bin/bash
+virtualenv env
+source env/bin/activate
+
+# Install pyang
+pip install pyang
+
+# Set environment variable for pyang plugin usage
+#export PYBINDPLUGIN=`echo $PWD`
+#echo $PYBINDPLUGIN
+
+if [ ! -d "YangJsonTools" ] ; then
+    git clone "https://github.com/OpenNetworkingFoundation/EAGLE-Open-Model-Profile-and-Tools" "YangJsonTools"
+fi
+
+pyang --plugindir YangJsonTools/YangJsonTools -f swagger -o swagger/swagger-from-yang.json YANG/als-popsicles-igloo.yang

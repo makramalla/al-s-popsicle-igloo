@@ -1,0 +1,173 @@
+---
+swagger: "2.0"
+info:
+  description: "als-popsicles-igloo API generated from als-popsicles-igloo.yang"
+  version: "1.0.0"
+  title: "als-popsicles-igloo API"
+basePath: "/restconf"
+schemes:
+- "http"
+paths:
+  /config/menu/:
+    get:
+      tags:
+      - "menu"
+      summary: "Retrieve menu"
+      description: "Retrieve operation of resource: menu"
+      operationId: "retrieve_menu"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+              x-path: "/menu/{menu_item}/"
+        400:
+          description: "Internal Error"
+      x-swagger-router-controller: "swagger_server.controllers.menu_controller"
+  /config/menu/{menu_item}/:
+    get:
+      tags:
+      - "menu"
+      summary: "Retrieve menu by ID"
+      description: "Retrieve operation of resource: menu"
+      operationId: "retrieve_menu_menu_by_id"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "menu_item"
+        in: "path"
+        description: "ID of menu_item"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/popsicles-data"
+        400:
+          description: "Internal Error"
+      x-swagger-router-controller: "swagger_server.controllers.menu_controller"
+  /config/purchase/:
+    get:
+      tags:
+      - "purchase"
+      summary: "Retrieve purchase"
+      description: "Retrieve operation of resource: purchase"
+      operationId: "retrieve_purchase"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+              x-path: "/purchase/{uuid}/"
+        400:
+          description: "Internal Error"
+      x-swagger-router-controller: "swagger_server.controllers.purchase_controller"
+    post:
+      tags:
+      - "purchase"
+      summary: "Create purchase by ID"
+      description: "Create operation of resource: purchase"
+      operationId: "create_purchase_purchase_by_id"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "purchase"
+        description: "purchasebody object"
+        required: true
+        schema:
+          $ref: "#/definitions/purchase_schema"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/purchase_response_schema"
+        400:
+          description: "Internal Error"
+      x-swagger-router-controller: "swagger_server.controllers.purchase_controller"
+  /config/purchase/{uuid}/:
+    get:
+      tags:
+      - "purchase"
+      summary: "Retrieve purchase by ID"
+      description: "Retrieve operation of resource: purchase"
+      operationId: "retrieve_purchase_purchase_by_id"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "uuid"
+        in: "path"
+        description: "ID of uuid"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/purchase_schema"
+        400:
+          description: "Internal Error"
+      x-swagger-router-controller: "swagger_server.controllers.purchase_controller"
+definitions:
+  popsicles-data:
+    properties:
+      type:
+        type: "string"
+      price:
+        type: "string"
+      menu_item:
+        type: "string"
+      description:
+        type: "string"
+    example:
+      price: "price"
+      menu_item: "menu_item"
+      description: "description"
+      type: "type"
+  purchase_schema:
+    properties:
+      payment_total:
+        type: "string"
+      popsicles:
+        type: "array"
+        items:
+          $ref: "#/definitions/purchase_schema_popsicles"
+        x-key: "menu_item"
+    example:
+      payment_total: "payment_total"
+      popsicles:
+      - menu_item: "menu_item"
+      - menu_item: "menu_item"
+  purchase_response_schema:
+    properties:
+      uuid:
+        type: "string"
+    example:
+      uuid: "uuid"
+  purchase_schema_popsicles:
+    properties:
+      menu_item:
+        type: "string"
+    example:
+      menu_item: "menu_item"

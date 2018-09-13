@@ -1,0 +1,229 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "description": "als-popsicles-igloo API generated from als-popsicles-igloo.yang",
+      "title": "als-popsicles-igloo API"
+    },
+    "basePath": "/restconf",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/config/menu/": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "items": {
+                  "type": "string",
+                  "x-path": "/menu/{menu_item}/"
+                },
+                "type": "array"
+              }
+            },
+            "400": {
+              "description": "Internal Error"
+            }
+          },
+          "description": "Retrieve operation of resource: menu",
+          "parameters": [],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "Retrieve menu",
+          "consumes": [
+            "application/json"
+          ],
+          "operationId": "retrieve_menu",
+          "tags": [
+            "menu"
+          ]
+        }
+      },
+      "/config/menu/{menu_item}/": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "$ref": "#/definitions/popsicles-data"
+              }
+            },
+            "400": {
+              "description": "Internal Error"
+            }
+          },
+          "description": "Retrieve operation of resource: menu",
+          "parameters": [
+            {
+              "description": "ID of menu_item",
+              "required": true,
+              "type": "string",
+              "name": "menu_item",
+              "in": "path"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "menu"
+          ],
+          "summary": "Retrieve menu by ID",
+          "consumes": [
+            "application/json"
+          ],
+          "operationId": "retrieve_menu_menu_by_id"
+        }
+      },
+      "/config/purchase/": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "items": {
+                  "type": "string",
+                  "x-path": "/purchase/{uuid}/"
+                },
+                "type": "array"
+              }
+            },
+            "400": {
+              "description": "Internal Error"
+            }
+          },
+          "description": "Retrieve operation of resource: purchase",
+          "parameters": [],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "Retrieve purchase",
+          "consumes": [
+            "application/json"
+          ],
+          "operationId": "retrieve_purchase",
+          "tags": [
+            "purchase"
+          ]
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "$ref": "#/definitions/purchase_response_schema"
+              }
+            },
+            "400": {
+              "description": "Internal Error"
+            }
+          },
+          "description": "Create operation of resource: purchase",
+          "parameters": [
+            {
+              "required": true,
+              "description": "purchasebody object",
+              "schema": {
+                "$ref": "#/definitions/purchase_schema"
+              },
+              "name": "purchase",
+              "in": "body"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "purchase"
+          ],
+          "summary": "Create purchase by ID",
+          "consumes": [
+            "application/json"
+          ],
+          "operationId": "create_purchase_purchase_by_id"
+        }
+      },
+      "/config/purchase/{uuid}/": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "$ref": "#/definitions/purchase_schema"
+              }
+            },
+            "400": {
+              "description": "Internal Error"
+            }
+          },
+          "description": "Retrieve operation of resource: purchase",
+          "parameters": [
+            {
+              "description": "ID of uuid",
+              "required": true,
+              "type": "string",
+              "name": "uuid",
+              "in": "path"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "purchase"
+          ],
+          "summary": "Retrieve purchase by ID",
+          "consumes": [
+            "application/json"
+          ],
+          "operationId": "retrieve_purchase_purchase_by_id"
+        }
+      }
+    },
+    "definitions": {
+      "popsicles-data": {
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "price": {
+            "type": "string"
+          },
+          "menu_item": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "purchase_schema": {
+        "properties": {
+          "payment_total": {
+            "type": "string"
+          },
+          "popsicles": {
+            "items": {
+              "properties": {
+                "menu_item": {
+                  "type": "string"
+                }
+              }
+            },
+            "type": "array",
+            "x-key": "menu_item"
+          }
+        }
+      },
+      "purchase_response_schema": {
+        "properties": {
+          "uuid": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,72 @@
+module als-popsicles-igloo {
+
+    // boilerplate
+    yang-version "1";
+    namespace "https:/test.io/als-popsicles-igloo";
+
+    prefix "als-popsicles-igloo";
+
+    // identity to unequivocally identify the faction an individual belongs to
+    identity popsicle-type {
+        description "existing types of popsicles";
+    }
+
+    identity sweet {
+        base popsicle-type;
+        description "sweet popsicles";
+    }
+
+    identity sour {
+        base popsicle-type;
+        description "sour popsicles";
+    }
+
+    // price-list
+    typedef price {
+        type decimal64 {
+            fraction-digits 2;
+        }
+    }
+
+    // this grouping will have the data we will assign to popsicles
+    grouping popsicles-data {
+        leaf menu_item {
+            type string;
+        }
+        leaf price {
+            type price;
+        }
+        leaf description {
+            type string;
+        }
+        leaf type {
+            type identityref {
+                base als-popsicles-igloo:popsicle-type;
+            }
+        }
+    }
+
+    // this is the root object defined by the model
+    list menu {
+        config false;
+        // identify each popsicle by using the name as key
+        key "menu_item";
+        // popsicle will have the elements defined in the grouping
+        uses popsicles-data;
+    }
+    list purchase {
+        key "uuid";
+        list popsicles {
+            key "menu_item";
+            leaf menu_item {
+                type string;
+            }
+        }
+        leaf payment_total {
+            type price;
+        }
+        leaf uuid {
+            type string;
+        }
+    }
+}

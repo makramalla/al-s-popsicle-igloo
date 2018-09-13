@@ -1,0 +1,11 @@
+module: als-popsicles-igloo
+  +--ro menu* [menu_item]
+  |  +--ro menu_item      string
+  |  +--ro price?         price
+  |  +--ro description?   string
+  |  +--ro type?          identityref
+  +--rw purchase* [uuid]
+     +--rw popsicles* [menu_item]
+     |  +--rw menu_item    string
+     +--rw payment_total?   price
+     +--rw uuid             string
